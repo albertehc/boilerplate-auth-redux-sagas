@@ -1,6 +1,6 @@
 ## Boilerplate AUTH Frontend (React with Hooks) Backend (Node)
 
-*Frontend:* Context, Custom Hooks, Hook Form, Cookies, Json Web Token, Styled Components, Axios with interfaces.
+*Frontend:* Redux, Sagas , Custom Hooks, Hook Form, Cookies, Json Web Token, Styled Components, Axios with interfaces.
 
 *Backend:* Node, Express, Express-validator, Json Web Token, cookies, cors, dotenv, mongoose, bcryptjs, cookie parser, multiple validations and securities.
 
