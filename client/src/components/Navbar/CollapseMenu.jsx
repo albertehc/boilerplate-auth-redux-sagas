@@ -1,10 +1,10 @@
 import React from "react";
 import { useSpring } from "react-spring";
-import { useAuthContext } from "./../../context/auth/authContext";
 import { CollapseWrapper, NavLinks } from "./CollapseMenu.styles";
 import { LinkStyled } from './../Link/Link'
+import { useSelector } from "react-redux";
 export const CollapseMenu = React.memo(({ navbarState, handleNavbar, handleLogout }) => {
-  const [{ logged }] = useAuthContext();
+  const { logged } = useSelector(state => state.auth);
   const { open } = useSpring({ open: navbarState ? 0 : 1 });
 
   if (navbarState) {

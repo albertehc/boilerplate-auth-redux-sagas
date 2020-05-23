@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useAuthContext } from "./../context/auth/authContext";
+import { useSelector } from "react-redux";
 
 export const AnonRoute = ({ component: Component, ...rest }) => {
-  const [{ logged }] = useAuthContext();
+  const { logged } = useSelector(state => state.auth);
 
   return (
     <Route

@@ -1,23 +1,21 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Form } from "./styles";
-import { Email } from "../../components/Auth/Email";
-import { Password } from "../../components/Auth/Password";
 import { login } from "./../../api/auth.api";
-import { useAuthContext } from "./../../context/auth/authContext";
 import { useHistory } from "react-router-dom";
 import { submitApi } from "../../helpers/submitApi.js";
+import { useDispatch } from "react-redux";
+import Input from "./../../components/Input";
+import * as validation from "./../../helpers/auth/authValidations";
 
-export const Login = () => {
-  const [, dispatch] = useAuthContext();
+
+export default () => {
   const history = useHistory();
   const { register, handleSubmit, errors, watch } = useForm();
-  const password = useRef({});
-  password.current = watch("password", "");
 
   const onSubmit = (data) => {
-    submitApi({ data, api: login, action: "Login", history, dispatch });
+    submitApi({ data, api: login, action: "Login", history });
   };
 
   return (
@@ -30,15 +28,23 @@ export const Login = () => {
         />
       </Helmet>
       <Form onSubmit={handleSubmit(onSubmit)} autoComplete={"off"}>
-        <Email placeholder={"Email"} register={register} errors={errors} />
-        <Password
-          name={"password"}
-          edit={false}
-          placeholder={"Password"}
+      <Input
+          placeholder="Email"
+          type="text"
+          validation={validation.email}
+          name={"email"}
+          error={errors}
           register={register}
-          errors={errors}
         />
-        <input type="submit" />
+        <Input
+          placeholder="Password"
+          name="password"
+          type="password"
+          error={errors}
+          register={register}
+          validation={validation.password}
+        />
+        <button type="submit">Submit</button>
       </Form>
     </>
   );

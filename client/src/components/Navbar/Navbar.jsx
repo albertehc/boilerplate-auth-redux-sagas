@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSpring, config } from "react-spring";
+import { useSelector } from "react-redux";
 import swal from "sweetalert";
 import { useAuthContext } from "./../../context/auth/authContext";
 import { setUserActionError } from "./../../context/auth/authActions";
@@ -16,9 +17,10 @@ import {
   BurgerWrapper
 } from "./Navbar.styles";
 
+
 export const Navbar = React.memo(() => {
   const history = useHistory();
-  const [{ logged }, dispatch] = useAuthContext();
+  const { logged } = useSelector(state => state.auth);
   const [navbarState, setNavbarState] = useState(false);
   const handleNavbar = () => setNavbarState(!navbarState);
   const barAnimation = useSpring({
@@ -40,8 +42,8 @@ export const Navbar = React.memo(() => {
           timer: 2900,
         })
       )
-      .then(dispatch(setUserActionError()))
-      .then(history.push("/"));
+      // .then(dispatch(setUserActionError()))
+      // .then(history.push("/"));
   };
   return (
     <>

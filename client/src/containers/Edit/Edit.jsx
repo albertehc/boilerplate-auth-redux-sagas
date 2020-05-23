@@ -4,18 +4,18 @@ import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 import { Form } from "./styles";
-import { Email } from "../../components/Auth/Email";
-import { Username } from "../../components/Auth/Username";
 import { Password } from "../../components/Auth/Password";
 import { RepeatPassword } from "../../components/Auth/RepeatPassword";
 import { useAuthContext } from "./../../context/auth/authContext";
 import { setUserActionError } from "./../../context/auth/authActions";
 import { edit, remove } from "../../api/auth.api";
 import { submitApi } from "../../helpers/submitApi.js";
-import { Select } from "./../../components/Auth/Select";
+import Select from "../../components/Select";
 import { languages, themes } from "./../../constants";
+import Input from "./../../components/Input";
 
-export const Edit = () => {
+export default () => {
+  return null
   const { register, handleSubmit, errors, watch, setValue } = useForm();
   const [{ username, email, language, theme }, dispatch] = useAuthContext();
   const history = useHistory();
@@ -52,18 +52,18 @@ export const Edit = () => {
               timer: 2900,
             });
             history.push("/");
-
           })
-          .catch(e => {
+          .catch((e) => {
             swal("Error!", "Password incorrect", {
               button: false,
               timer: 2900,
             });
           });
-      } else swal("Error!", "Password empty!", {
-              button: false,
-              timer: 1900,
-            });
+      } else
+        swal("Error!", "Password empty!", {
+          button: false,
+          timer: 1900,
+        });
     });
   };
 
@@ -81,11 +81,36 @@ export const Edit = () => {
         <meta name="description" content="Edit Page" />
       </Helmet>
       <Form onSubmit={handleSubmit(onSubmit)} autoComplete={"off"}>
-        <Email placeholder="Email" register={register} errors={errors} />
-        <Username
-          placeholder={"Username"}
+        <Input
+          placeholder="Email"
+          type="text"
+          validation={{
+            required: { value: true, message: "Email can't be empty" },
+            maxLength: 80,
+            pattern: {
+              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: "Invalid email address",
+            },
+          }}
+          name={"email"}
           register={register}
           errors={errors}
+        />
+        {errors.email && <span className="">{errors.email.message}</span>}
+        <Input
+          placeholder="Username"
+          name="username"
+          type="text"
+          register={register}
+          errors={errors}
+          validation={{
+            required: { value: true, message: "Username can't be empty" },
+            maxLength: { value: 20, message: "Username max length is 20" },
+            pattern: {
+              value: /^[a-zA-Z0-9_]*$/i,
+              message: "Username can only be alphanumeric",
+            },
+          }}
         />
         <Password
           name={"oldPassword"}

@@ -4,10 +4,10 @@ import { Helmet } from "react-helmet-async";
 import Loader from "react-loader-spinner";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Footer } from "./components/Footer/Footer";
-import { Home } from "./pages/Home/Home";
-import { Signup } from "./pages/Signup/Signup";
-import { Login } from "./pages/Login/Login";
-import { Edit } from "./pages/Edit/Edit";
+import { Home } from "./views/Home/Home";
+import Signup from "./views/Signup";
+import Login from "./views/Login/Login";
+import Edit from "./views/Edit";
 import { Routes } from "./constants/";
 import { AnonRoute } from "./routes/AnonRoute";
 import { PrivateRoute } from "./routes/PrivateRoute";
@@ -16,25 +16,25 @@ import { me } from "./api/auth.api";
 import { setUserAction, setUserActionError } from "./context/auth/authActions";
 
 const App = () => {
-  const [{ logged, loading }, dispatch] = useAuthContext();
-  useEffect(() => {
-    if (!logged) {
-      me().then((res) => {
-        if (res?.msg !== "Unauthorized") {
-          dispatch(setUserAction(res));
-        } else {
-          dispatch(setUserActionError());
-        }
-      });
-    }
-    // eslint-disable-next-line
-  }, []);
-  if (loading)
-    return (
-      <>
-        <Loader color="#158AFF" className="loader" type="ThreeDots" />
-      </>
-    );
+  //const [{ logged, loading }, dispatch] = useAuthContext();
+  // useEffect(() => {
+  //   if (!logged) {
+  //     me().then((res) => {
+  //       if (res?.msg !== "Unauthorized") {
+  //         dispatch(setUserAction(res));
+  //       } else {
+  //         dispatch(setUserActionError());
+  //       }
+  //     });
+  //   }
+  //   // eslint-disable-next-line
+  // }, []);
+  // if (loading)
+  //   return (
+  //     <>
+  //       <Loader color="#158AFF" className="loader" type="ThreeDots" />
+  //     </>
+  //   );
   return (
     <Router>
       <Helmet titleTemplate={`%s - ${process.env.REACT_APP_WEBNAME}`} defaultTitle={process.env.REACT_APP_WEBNAME}>
