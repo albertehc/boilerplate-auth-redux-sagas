@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import Form from "./styles";
 import Select from "../../components/Select";
@@ -21,10 +20,6 @@ export default () => {
 
   return (
     <>
-      <Helmet>
-        <title>Signup</title>
-        <meta name="description" content="Signup Page" />
-      </Helmet>
       <Form onSubmit={handleSubmit(onSubmit)} autoComplete={"off"}>
         <Input
           placeholder="Email"

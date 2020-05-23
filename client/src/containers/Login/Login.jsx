@@ -1,33 +1,26 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Form } from "./styles";
-import { login } from "./../../api/auth.api";
-import { useHistory } from "react-router-dom";
-import { submitApi } from "../../helpers/submitApi.js";
+import Form from "./styles";
 import { useDispatch } from "react-redux";
 import Input from "./../../components/Input";
 import * as validation from "./../../helpers/auth/authValidations";
-
+import * as A from "./../../redux/auth/actions/auth.actions";
 
 export default () => {
+  const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
-    submitApi({ data, api: login, action: "Login" });
+    dispatch(A.loginRequest(data))
   };
 
   return (
     <>
-      <Helmet>
-        <title>Login</title>
-        <meta
-          name="description"
-          content="Login Page"
-        />
-      </Helmet>
-      <Form onSubmit={handleSubmit(onSubmit)} autoComplete={"off"}>
-      <Input
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete={"off"}
+      >
+        <Input
           placeholder="Email"
           type="text"
           validation={validation.email}

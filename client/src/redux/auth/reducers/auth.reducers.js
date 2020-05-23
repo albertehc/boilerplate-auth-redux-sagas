@@ -1,5 +1,6 @@
 import * as C from "./../constants/auth.constants";
 import swal from "./../../../helpers/swal";
+import toCapitalLetter from "./../../../helpers/toCapitalLetter";
 
 export const initialState = {
   logged: false,
@@ -13,16 +14,25 @@ export const initialState = {
 };
 
 export default (state = initialState, { type, payload }) => {
+  let authAction;
+  if (!!type) authAction = type.split("_")[0].split(" ")[1];
   switch (type) {
     case C.LOGOUT_REQUEST:
     case C.SIGNUP_REQUEST:
+    case C.LOGIN_REQUEST:
+    case C.EDIT_REQUEST:
+    case C.DELETE_REQUEST:
+    case C.ME_REQUEST:
       return {
         ...state,
         msg: null,
         loading: true,
       };
     case C.SIGNUP_SUCCESS:
-      swal.success('Signup')
+    case C.LOGIN_SUCCESS:
+    case C.EDIT_SUCCESS:
+    case C.ME_SUCCESS:
+      if (type !== C.ME_SUCCESS) swal.success(toCapitalLetter(authAction));
       return {
         ...state,
         logged: true,
@@ -35,7 +45,8 @@ export default (state = initialState, { type, payload }) => {
         loading: false,
       };
     case C.LOGOUT_SUCCESS:
-      swal.success('Logout');
+    case C.DELETE_SUCCESS:
+      swal.success(toCapitalLetter(authAction));
       return {
         ...state,
         logged: false,
@@ -45,9 +56,18 @@ export default (state = initialState, { type, payload }) => {
         msg: null,
         loading: false,
       };
+    case C.EDIT_FAILURE:
+      return {
+        ...state,
+        msg: payload,
+        loading: false,
+      };
     case C.LOGOUT_FAILURE:
     case C.SIGNUP_FAILURE:
-      swal.error(payload);
+    case C.ME_FAILURE:
+    case C.LOGIN_FAILURE:
+    case C.DELETE_FAILURE:
+      if (type !== C.ME_FAILURE) swal.error(payload);
       return {
         ...state,
         logged: false,

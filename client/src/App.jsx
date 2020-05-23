@@ -1,44 +1,35 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "react-loader-spinner";
 import Navbar from "./containers/Navbar";
 import { Footer } from "./components/Footer/Footer";
 import { Home } from "./views/Home/Home";
 import Signup from "./views/Signup";
-import Login from "./views/Login/Login";
+import Login from "./views/Login";
 import Edit from "./views/Edit";
+import * as A from "./redux/auth/actions/auth.actions";
 import { Routes } from "./constants/";
 import { AnonRoute } from "./routes/AnonRoute";
 import { PrivateRoute } from "./routes/PrivateRoute";
-import { me } from "./api/auth.api";
-import { setUserAction, setUserActionError } from "./context/auth/authActions";
 
 const App = () => {
-  //const [{ logged, loading }, dispatch] = useAuthContext();
-  // useEffect(() => {
-  //   if (!logged) {
-  //     me().then((res) => {
-  //       if (res?.msg !== "Unauthorized") {
-  //         dispatch(setUserAction(res));
-  //       } else {
-  //         dispatch(setUserActionError());
-  //       }
-  //     });
-  //   }
-  //   // eslint-disable-next-line
-  // }, []);
-  // if (loading)
-  //   return (
-  //     <>
-  //       <Loader color="#158AFF" className="loader" type="ThreeDots" />
-  //     </>
-  //   );
+  const dispatch = useDispatch();
+  const { logged, loading } = useSelector(state => state.auth);
+  useEffect(() => {
+    if (!logged) {
+      dispatch(A.meRequest());
+    }
+    // eslint-disable-next-line
+  }, []);
+  if (loading)
+    return (
+      <>
+        <Loader color="#158AFF" className="loader" type="ThreeDots" />
+      </>
+    );
   return (
     <Router>
-      <Helmet titleTemplate={`%s - ${process.env.REACT_APP_WEBNAME}`} defaultTitle={process.env.REACT_APP_WEBNAME}>
-        <meta name="description" content={process.env.REACT_APP_WEBNAME} />
-      </Helmet>
       <Navbar />
       <Switch>
         <Route exact path={Routes.HOME} component={Home} />
