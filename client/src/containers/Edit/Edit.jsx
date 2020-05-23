@@ -37,45 +37,8 @@ export default () => {
           type: "password",
         },
       },
-    }).then((password) => {console.log(password); dispatch(A.deleteRequest(password)) });
+    }).then((password) => dispatch(A.deleteRequest(password)));
   };
-  //   swal({
-  //     title: "Are you sure?",
-  //     text: "Once deleted, you will not be able to recover you account!",
-  //     icon: "warning",
-  //     buttons: true,
-  //     dangerMode: true,
-  //     content: {
-  //       element: "input",
-  //       attributes: {
-  //         placeholder: "Type your password",
-  //         type: "password",
-  //       },
-  //     },
-  //   }).then((password) => {
-  //     if (password) {
-  //       remove({ password })
-  //         .then(() => {
-  //           dispatch(setUserActionError());
-  //           swal("Done!", `User deleted!`, "success", {
-  //             button: false,
-  //             timer: 2900,
-  //           });
-  //           history.push("/");
-  //         })
-  //         .catch((e) => {
-  //           swal("Error!", "Password incorrect", {
-  //             button: false,
-  //             timer: 2900,
-  //           });
-  //         });
-  //     } else
-  //       swal("Error!", "Password empty!", {
-  //         button: false,
-  //         timer: 1900,
-  //       });
-  //   });
-  // };
 
   useEffect(() => {
     setValue("email", email);
