@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Loader from "react-loader-spinner";
-import { Navbar } from "./components/Navbar/Navbar";
+import Navbar from "./containers/Navbar";
 import { Footer } from "./components/Footer/Footer";
 import { Home } from "./views/Home/Home";
 import Signup from "./views/Signup";
@@ -11,7 +11,6 @@ import Edit from "./views/Edit";
 import { Routes } from "./constants/";
 import { AnonRoute } from "./routes/AnonRoute";
 import { PrivateRoute } from "./routes/PrivateRoute";
-import { useAuthContext } from "./context/auth/authContext";
 import { me } from "./api/auth.api";
 import { setUserAction, setUserActionError } from "./context/auth/authActions";
 

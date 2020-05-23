@@ -10,4 +10,4 @@ const StyledLink = styled(Link)`
     }
 `;
 
-export const LinkStyled = React.memo((props) => <StyledLink {...props} />);
+export default React.memo((props) => <StyledLink {...props} />);

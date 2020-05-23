@@ -1,13 +1,12 @@
 import React from "react";
 import { useSpring } from "react-spring";
-import { CollapseWrapper, NavLinks } from "./CollapseMenu.styles";
-import { LinkStyled } from './../Link/Link'
-import { useSelector } from "react-redux";
-export const CollapseMenu = React.memo(({ navbarState, handleNavbar, handleLogout }) => {
-  const { logged } = useSelector(state => state.auth);
-  const { open } = useSpring({ open: navbarState ? 0 : 1 });
+import { CollapseWrapper, NavLinksWrapper } from "./CollapseMenu.styles";
+import NavLinks from "./NavLinks";
 
-  if (navbarState) {
+export default React.memo(
+  ({ closeCollapseMenu, handleLogout, navbarState }) => {
+    const { open } = useSpring({ open: navbarState ? 0 : 1 });
+    if (!navbarState) return null;
     return (
       <CollapseWrapper
         style={{
@@ -19,33 +18,13 @@ export const CollapseMenu = React.memo(({ navbarState, handleNavbar, handleLogou
             .interpolate((openValue) => `translate3d(0, ${openValue}px, 0`),
         }}
       >
-        <NavLinks>
-          <LinkStyled to={"/"} onClick={handleNavbar}>
-            <p>Home</p>
-          </LinkStyled>
-          {!logged && (
-            <>
-              <LinkStyled to={"/login"} onClick={handleNavbar}>
-                <p>Login</p>
-              </LinkStyled>
-              <LinkStyled to={"/signup"} onClick={handleNavbar}>
-                <p>Signup</p>
-              </LinkStyled>
-            </>
-          )}
-          {logged && (
-            <>
-              <LinkStyled to={"/edit"} onClick={handleNavbar}>
-                <p>Edit</p>
-              </LinkStyled>
-              <p onClick={handleLogout}>
-                Logout
-              </p>
-            </>
-          )}
-        </NavLinks>
+        <NavLinksWrapper>
+          <NavLinks
+            closeCollapseMenu={closeCollapseMenu}
+            handleLogout={handleLogout}
+          />
+        </NavLinksWrapper>
       </CollapseWrapper>
     );
   }
-  return null;
-});
+);

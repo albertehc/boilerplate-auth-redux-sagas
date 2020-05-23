@@ -9,7 +9,7 @@ export const CollapseWrapper = styled(animated.div)`
   right: 0;
 `;
 
-export const NavLinks = styled.ul`
+export const NavLinksWrapper = styled.ul`
   list-style-type: none;
   padding: 2rem 1rem 2rem 2rem;
 
@@ -17,7 +17,7 @@ export const NavLinks = styled.ul`
     transition: all 300ms linear 0s;
   }
 
-  & p {
+  & span {
     font-size: 1.4rem;
     line-height: 2;
     color: #dfe6e9;
@@ -32,7 +32,6 @@ export const NavLinks = styled.ul`
     }
   }
   @media (min-width: 769px) {
-    
     display: none;
   }
 `;

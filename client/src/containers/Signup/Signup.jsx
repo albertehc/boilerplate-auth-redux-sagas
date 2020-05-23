@@ -7,11 +7,11 @@ import Select from "../../components/Select";
 import { languages, themes } from "./../../constants";
 import Input from "./../../components/Input";
 import * as validation from "./../../helpers/auth/authValidations";
-import A from "./../../redux/auth/actions";
+import * as A from "./../../redux/auth/actions/auth.actions";
 
 export default () => {
   const dispatch = useDispatch();
-  const { register, handleSubmit, errors, watch, getValues } = useForm();
+  const { register, handleSubmit, errors, getValues } = useForm();
   const password = getValues('password')
   const onSubmit = (data) => {
     delete data.password_repeat;
@@ -39,7 +39,6 @@ export default () => {
           type="text"
           error={errors}
           register={register}
-          error={errors}
           validation={validation.username}
         />
         <Input

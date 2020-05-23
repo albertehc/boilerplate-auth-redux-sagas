@@ -1,4 +1,4 @@
-import C from "./../constants";
+import * as C from "./../constants/auth.constants";
 import swal from "./../../../helpers/swal";
 
 export const initialState = {
@@ -14,6 +14,7 @@ export const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
+    case C.LOGOUT_REQUEST:
     case C.SIGNUP_REQUEST:
       return {
         ...state,
@@ -33,6 +34,18 @@ export default (state = initialState, { type, payload }) => {
         msg: null,
         loading: false,
       };
+    case C.LOGOUT_SUCCESS:
+      swal.success('Logout');
+      return {
+        ...state,
+        logged: false,
+        id: null,
+        username: null,
+        email: null,
+        msg: null,
+        loading: false,
+      };
+    case C.LOGOUT_FAILURE:
     case C.SIGNUP_FAILURE:
       swal.error(payload);
       return {

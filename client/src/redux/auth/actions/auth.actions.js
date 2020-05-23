@@ -1,14 +1,25 @@
-import C from "./../constants";
+import * as C from "./../constants/auth.constants";
 
-export const signupRequest = payload => ({
+export const signupRequest = (payload) => ({
   type: C.SIGNUP_REQUEST,
-  payload
+  payload,
 });
-export const signupSuccess = payload => ({
+export const signupSuccess = (payload) => ({
   type: C.SIGNUP_SUCCESS,
-  payload
+  payload,
 });
 export const signupFailure = (payload) => ({
   type: C.SIGNUP_FAILURE,
-  payload
+  payload,
+});
+
+export const logoutRequest = () => ({
+  type: C.LOGOUT_REQUEST
+});
+export const logoutSuccess = () => ({
+  type: C.LOGOUT_SUCCESS,
+});
+export const logoutFailure = (payload) => ({
+  type: C.LOGOUT_FAILURE,
+  payload,
 });
