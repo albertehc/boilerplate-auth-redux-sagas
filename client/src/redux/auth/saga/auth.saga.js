@@ -46,7 +46,7 @@ function* editEffect({ payload }) {
 
 function* deleteEffect({ payload }) {
   try {
-    const response = yield call(authApi.remove, payload);
+    const response = yield call(authApi.remove, { password: payload });
     yield put(A.deleteSuccess(response));
   } catch (e) {
     console.error(e);

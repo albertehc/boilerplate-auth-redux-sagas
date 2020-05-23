@@ -34,7 +34,7 @@ export default () => {
           type="password"
           error={errors}
           register={register}
-          validation={validation.password}
+          validation={validation.password()}
         />
         <button type="submit">Submit</button>
       </Form>

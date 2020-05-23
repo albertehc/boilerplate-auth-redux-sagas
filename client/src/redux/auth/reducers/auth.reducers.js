@@ -56,7 +56,9 @@ export default (state = initialState, { type, payload }) => {
         msg: null,
         loading: false,
       };
+    case C.DELETE_FAILURE:
     case C.EDIT_FAILURE:
+      swal.error(payload);
       return {
         ...state,
         msg: payload,
@@ -66,7 +68,6 @@ export default (state = initialState, { type, payload }) => {
     case C.SIGNUP_FAILURE:
     case C.ME_FAILURE:
     case C.LOGIN_FAILURE:
-    case C.DELETE_FAILURE:
       if (type !== C.ME_FAILURE) swal.error(payload);
       return {
         ...state,

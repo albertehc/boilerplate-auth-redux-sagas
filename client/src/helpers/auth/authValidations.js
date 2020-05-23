@@ -16,16 +16,27 @@ export const username = {
   },
 };
 
-export const password = {
-  required: "You must specify a password",
-  minLength: {
-    value: 8,
-    message: "Password must have at least 8 characters",
-  },
+export const password = (oldPassword) => {
+  if (oldPassword !== undefined)
+    return {
+      minLength: {
+        value: 8,
+        message: "Password must have at least 8 characters",
+      },
+    };
+  return {
+    required: "You must specify a password",
+    minLength: {
+      value: 8,
+      message: "Password must have at least 8 characters",
+    },
+  };
 };
 
-export const repeatPassword = (password) => ({
-  required: "The passwords do not match",
-  validate: (value) =>
-    value === password || "The passwords do not match",
-});
+export const repeatPassword = (password) => {
+  if (password === "") return null;
+  return {
+    required: "The passwords do not match",
+    validate: (value) => value === password || "The passwords do not match",
+  };
+};

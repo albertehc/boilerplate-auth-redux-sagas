@@ -1,28 +1,44 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
+import swal from "sweetalert";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
-import { Form } from "./styles";
-import { Password } from "../../components/Auth/Password";
-import { RepeatPassword } from "../../components/Auth/RepeatPassword";
-import { useAuthContext } from "./../../context/auth/authContext";
+import Form from "./styles";
 import Select from "../../components/Select";
 import { languages, themes } from "./../../constants";
 import Input from "./../../components/Input";
+import * as validation from "./../../helpers/auth/authValidations";
+import * as A from "./../../redux/auth/actions/auth.actions";
 
 export default () => {
   const { register, handleSubmit, errors, watch, setValue } = useForm();
-  const [{ username, email, language, theme }, dispatch] = useAuthContext();
-  const history = useHistory();
-  const password = useRef({});
-  const oldPassword = useRef({});
-  oldPassword.current = watch("oldPassword", "");
-  password.current = watch("password", "");
+  const dispatch = useDispatch();
+  const { email, username, language, theme } = useSelector(
+    (state) => state.auth
+  );
+  const password = watch("password", "");
+  const oldPassword = watch("oldPassword", "");
 
   const onSubmit = (data) => {
-    // submitApi({ data, api: edit, action: "Edit", history, dispatch });
+    delete data.password_repeat;
+    dispatch(A.editRequest(data));
   };
 
-  // const deleteUser = () => {
+  const deleteUser = () => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover you account!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+      content: {
+        element: "input",
+        attributes: {
+          placeholder: "Type your password",
+          type: "password",
+        },
+      },
+    }).then((password) => {console.log(password); dispatch(A.deleteRequest(password)) });
+  };
   //   swal({
   //     title: "Are you sure?",
   //     text: "Once deleted, you will not be able to recover you account!",
@@ -74,59 +90,49 @@ export default () => {
         <Input
           placeholder="Email"
           type="text"
-          validation={{
-            required: { value: true, message: "Email can't be empty" },
-            maxLength: 80,
-            pattern: {
-              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              message: "Invalid email address",
-            },
-          }}
+          validation={validation.email}
           name={"email"}
+          error={errors}
           register={register}
-          errors={errors}
         />
-        {errors.email && <span className="">{errors.email.message}</span>}
         <Input
           placeholder="Username"
           name="username"
           type="text"
+          error={errors}
           register={register}
-          errors={errors}
-          validation={{
-            required: { value: true, message: "Username can't be empty" },
-            maxLength: { value: 20, message: "Username max length is 20" },
-            pattern: {
-              value: /^[a-zA-Z0-9_]*$/i,
-              message: "Username can only be alphanumeric",
-            },
-          }}
+          validation={validation.username}
         />
-        <Password
-          name={"oldPassword"}
-          placeholder={"Password"}
-          edit={false}
+        <Input
+          placeholder="Password"
+          name="oldPassword"
+          type="password"
+          error={errors}
           register={register}
-          errors={errors}
+          validation={validation.password()}
         />
-        <Password
-          name={"password"}
-          placeholder={"New Password"}
-          edit={true}
+        <Input
+          placeholder="New Password"
+          name="password"
+          type="password"
+          error={errors}
           register={register}
-          errors={errors}
+          validation={validation.password(oldPassword)}
         />
-        <RepeatPassword
-          placeholder={"Repeat New Password"}
+        <Input
+          placeholder="Repeat New Password"
+          name="password_repeat"
+          type="password"
+          error={errors}
+          register={register}
           password={password}
-          register={register}
-          errors={errors}
+          validation={validation.repeatPassword(password)}
         />
         <Select type="language" register={register} selects={languages} />
         <Select type="theme" register={register} selects={themes} />
-        <input type="submit" />
+        <button type="submit">Submit</button>
       </Form>
-      {/* <button onClick={() => deleteUser()}>Delete Account</button> */}
+      <button onClick={() => deleteUser()}>Delete Account</button>
     </>
   );
 };

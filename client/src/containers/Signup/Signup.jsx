@@ -43,7 +43,7 @@ export default () => {
           type="password"
           error={errors}
           register={register}
-          validation={validation.password}
+          validation={validation.password()}
         />
         <Input
           placeholder="Repeat Password"
