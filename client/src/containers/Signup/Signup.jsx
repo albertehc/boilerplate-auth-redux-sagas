@@ -11,8 +11,9 @@ import * as A from "./../../redux/auth/actions/auth.actions";
 
 export default () => {
   const dispatch = useDispatch();
-  const { register, handleSubmit, errors, getValues } = useForm();
-  const password = getValues('password')
+  const { register, handleSubmit, errors, watch } = useForm();
+  const password = watch("password", "");
+
   const onSubmit = (data) => {
     delete data.password_repeat;
     dispatch(A.signupRequest(data));

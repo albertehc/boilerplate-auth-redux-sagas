@@ -13,6 +13,7 @@ export default React.memo(() => {
 
   const handleLogout = () => {
     dispatch(A.logoutRequest());
+    closeCollapseMenu();
   };
 
   const closeCollapseMenu = () => {

@@ -11,11 +11,10 @@ import * as validation from "./../../helpers/auth/authValidations";
 
 
 export default () => {
-  const history = useHistory();
-  const { register, handleSubmit, errors, watch } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
-    submitApi({ data, api: login, action: "Login", history });
+    submitApi({ data, api: login, action: "Login" });
   };
 
   return (
