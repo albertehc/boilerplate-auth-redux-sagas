@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper } from "./BurgerMenu.styles";
+import Wrapper from "./BurgerMenu.styles";
 
 export default React.memo(({ handleNavbar, navbarState }) => (
   <Wrapper onClick={handleNavbar}>

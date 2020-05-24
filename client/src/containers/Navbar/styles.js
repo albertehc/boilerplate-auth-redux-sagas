@@ -40,7 +40,7 @@ export const NavLinks = styled(animated.ul)`
       color: #fdcb6e;
       border-bottom: 1px solid #fdcb6e;
     }
-
+    display: none;
     @media (max-width: 768px) {
       display: none;
     }
@@ -49,8 +49,7 @@ export const NavLinks = styled(animated.ul)`
 
 export const BurgerWrapper = styled.div`
   margin: auto 0;
-
   @media (min-width: 769px) {
-    display: none;
+    /* display: none; */
   }
 `;

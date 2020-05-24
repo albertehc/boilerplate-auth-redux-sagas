@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useNavbarAnimation from "./../../hooks/useNavbarAnimation";
 import C from "./../../components/Navbar";
-import * as S from "./Navbar.styles";
+import * as S from "./styles";
 import { useDispatch } from "react-redux";
 import * as A from "./../../redux/auth/actions/auth.actions";
 
