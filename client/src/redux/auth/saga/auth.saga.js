@@ -1,4 +1,4 @@
-import { takeLatest, call, put } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 import * as C from "./../constants/auth.constants";
 import * as authApi from "./../../../api/auth.api";
 import * as A from "./../actions/auth.actions";
@@ -27,7 +27,7 @@ function* meEffect() {
   try {
     const response = yield call(authApi.me);
     if (response?.msg !== "Unauthorized") yield put(A.meSuccess(response));
-    else yield put(A.meFailure(response.msg))
+    else yield put(A.meFailure(response.msg));
   } catch (e) {
     console.error(e);
     yield put(A.meFailure(e.response.data.msg));

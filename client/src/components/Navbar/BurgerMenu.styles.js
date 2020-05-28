@@ -1,7 +1,8 @@
 import styled from "styled-components";
+
 export default styled.div`
   position: relative;
-  padding-top: .7rem;
+  padding-top: 0.7rem;
   cursor: pointer;
   display: block;
 
@@ -10,14 +11,14 @@ export default styled.div`
     display: block;
     position: relative;
     width: 3.5rem;
-    height: .4rem;
-    margin-bottom: .7rem;
+    height: 0.4rem;
+    margin-bottom: 0.7rem;
     transition: all ease-in-out 0.2s;
   }
 
   .open span:nth-child(2) {
-      opacity: 0;
-    }
+    opacity: 0;
+  }
 
   .open span:nth-child(3) {
     transform: rotate(45deg);
@@ -28,5 +29,4 @@ export default styled.div`
     transform: rotate(-45deg);
     top: 11px;
   }
-
 `;

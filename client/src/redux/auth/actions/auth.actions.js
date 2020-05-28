@@ -1,6 +1,5 @@
 import * as C from "./../constants/auth.constants";
 
-
 export const meRequest = (payload) => ({
   type: C.ME_REQUEST,
   payload,
@@ -67,7 +66,7 @@ export const deleteFailure = (payload) => ({
 });
 
 export const logoutRequest = () => ({
-  type: C.LOGOUT_REQUEST
+  type: C.LOGOUT_REQUEST,
 });
 export const logoutSuccess = () => ({
   type: C.LOGOUT_SUCCESS,

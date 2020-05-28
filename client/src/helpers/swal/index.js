@@ -1,3 +1,3 @@
-import { success, error } from "./swal";
+import { error, success } from "./swal";
 
 export default { success, error };

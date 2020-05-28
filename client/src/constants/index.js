@@ -5,7 +5,6 @@ const SIGNUP = "/signup";
 const EDIT = "/edit";
 export const Routes = { HOME, LOGIN, SIGNUP, EDIT };
 
-
 //Languages
 
 export const languages = [
