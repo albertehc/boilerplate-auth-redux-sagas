@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({type, placeholder, name, validation, register, error}) => {
+export default React.memo(({type, placeholder, name, validation, register, error}) => {
     return (
         <>
             <input
@@ -12,4 +12,4 @@ export default ({type, placeholder, name, validation, register, error}) => {
             {error[name] && <span className="">{error[name].message}</span>}
         </>
     )
-};
+});

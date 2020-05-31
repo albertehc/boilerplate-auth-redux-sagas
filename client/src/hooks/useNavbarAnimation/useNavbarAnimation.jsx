@@ -1,4 +1,5 @@
-import {config, useSpring} from "react-spring";
+import React from 'react';
+import { config, useSpring } from "react-spring";
 
 export default () => {
     const barAnimation = useSpring({
@@ -11,5 +12,6 @@ export default () => {
         delay: 800,
         config: config.wobbly,
     });
-    return {barAnimation, linkAnimation}
+
+    return React.memo(()=>({barAnimation, linkAnimation}));
 }
